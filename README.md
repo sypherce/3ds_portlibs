@@ -1,7 +1,7 @@
-3DS Portlibs
+NDS Portlibs
 ============
 
-Here is a Makefile for building various portlibs for 3DS. You need to first
+Here is a Makefile for building various portlibs for NDS. You need to first
 build zlib and install it. Then you can build the other portlibs.
 
     $ make zlib

@@ -89,12 +89,12 @@ ZLIB_SRC              := $(ZLIB_VERSION).tar.gz
 ZLIB_DOWNLOAD         := http://prdownloads.sourceforge.net/libpng/zlib-1.2.8.tar.gz?download
 
 export PORTLIBS_PATH  := $(DEVKITPRO)/portlibs
-export PATH           := $(DEVKITARM)/bin:$(PORTLIBS_PATH)/3ds/bin:$(PORTLIBS_PATH)/armv6k/bin:$(PATH)
+export PATH           := $(DEVKITARM)/bin:$(PORTLIBS_PATH)/nds/bin:$(PORTLIBS_PATH)/armv5te/bin:$(PATH)
 export PKG_CONFIG     := $(PWD)/arm-none-eabi-pkg-config
 
-export CFLAGS         := -march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft -O3 -mword-relocations -ffunction-sections
-export CPPFLAGS       := -I$(PORTLIBS_PATH)/armv6k/include
-export LDFLAGS        := -L$(PORTLIBS_PATH)/armv6k/lib
+export CFLAGS         := -march=armv5te -mtune=arm946e-s -O3 -mword-relocations -ffunction-sections
+export CPPFLAGS       := -I$(PORTLIBS_PATH)/armv5te/include
+export LDFLAGS        := -L$(PORTLIBS_PATH)/armv5te/lib
 
 .PHONY: all install install-zlib clean download \
         $(BZIP2) \
@@ -203,114 +203,114 @@ $(BZIP2): $(BZIP2_SRC)
 $(FREETYPE): $(FREETYPE_SRC)
 	@[ -d $(FREETYPE_VERSION) ] || tar -xjf $<
 	@cd $(FREETYPE_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static --without-harfbuzz
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static --without-harfbuzz
 	@$(MAKE) -C $(FREETYPE_VERSION)
 
 $(GIFLIB): $(GIFLIB_SRC)
 	@[ -d $(GIFLIB_VERSION) ] || tar -xjf $<
 	@cd $(GIFLIB_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(GIFLIB_VERSION)
 
 $(JANSSON): $(JANSSON_SRC)
 	@[ -d $(JANSSON_VERSION) ] || tar -xzf $<
 	@cd $(JANSSON_VERSION) && \
 	 autoreconf -i && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(JANSSON_VERSION)
 
 $(LIBCONFIG): $(LIBCONFIG_SRC)
 	@[ -d $(LIBCONFIG_VERSION) ] || tar -xzf $<
 	@cd $(LIBCONFIG_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-cxx --disable-examples
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-cxx --disable-examples
 	@$(MAKE) -C $(LIBCONFIG_VERSION)/lib
 
 $(LIBEXIF): $(LIBEXIF_SRC)
 	@[ -d $(LIBEXIF_VERSION) ] || tar -xjf $<
 	@cd $(LIBEXIF_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(LIBEXIF_VERSION)
 
 $(LIBJPEGTURBO): $(LIBJPEGTURBO_SRC)
 	@[ -d $(LIBJPEGTURBO_VERSION) ] || tar -xzf $<
 	@cd $(LIBJPEGTURBO_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) CFLAGS+="\"-Drandom()=rand()\"" -C $(LIBJPEGTURBO_VERSION)
 
 $(LIBMAD): $(LIBMAD_SRC)
 	@[ -d $(LIBMAD_VERSION) ] || tar -xzf $<
 	@cd $(LIBMAD_VERSION) && \
 	 patch -Np1 -i ../libmad-0.15.1b.patch && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(LIBMAD_VERSION)
 
 $(LIBOGG): $(LIBOGG_SRC)
 	@[ -d $(LIBOGG_VERSION) ] || tar -xJf $<
 	@cd $(LIBOGG_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(LIBOGG_VERSION)
 
 $(LIBPNG): $(LIBPNG_SRC)
 	@[ -d $(LIBPNG_VERSION) ] || tar -xJf $<
 	@cd $(LIBPNG_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(LIBPNG_VERSION)
 
 $(LIBXML2): $(LIBXML2_SRC)
 	@[ -d $(LIBXML2_VERSION) ] || tar -xzf $<
 	@cd $(LIBXML2_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static --without-http --without-ftp --without-threads
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static --without-http --without-ftp --without-threads
 	@$(MAKE) -C $(LIBXML2_VERSION) libxml2.la
 
 $(LIBXMP_LITE): $(LIBXMP_LITE_SRC)
 	@[ -d $(LIBXMP_LITE_VERSION) ] || tar -xzf $<
 	@cd $(LIBXMP_LITE_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static
 	@$(MAKE) -C $(LIBXMP_LITE_VERSION)
 
 $(MBED): $(MBED_SRC)
 	@[ -d $(MBED_VERSION) ] || tar xzf $<
 	@cd $(MBED_VERSION) && \
 	 patch -Np1 -i ../libmbedtls-2.2.1.patch && \
-	 cmake -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_C_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-g++ -DCMAKE_INSTALL_PREFIX=$(PORTLIBS_PATH)/armv6k -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_CXX_FLAGS="$(CFLAGS) -fno-exceptions -fno-rtti" -DENABLE_ZLIB_SUPPORT=TRUE -DENABLE_TESTING=FALSE -DENABLE_PROGRAMS=FALSE .
+	 cmake -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_C_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-g++ -DCMAKE_INSTALL_PREFIX=$(PORTLIBS_PATH)/armv5te -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_CXX_FLAGS="$(CFLAGS) -fno-exceptions -fno-rtti" -DENABLE_ZLIB_SUPPORT=TRUE -DENABLE_TESTING=FALSE -DENABLE_PROGRAMS=FALSE .
 	@$(MAKE) -C $(MBED_VERSION)
 
 # sqlite won't work with -ffast-math
 $(SQLITE): $(SQLITE_SRC)
 	@[ -d $(SQLITE_VERSION) ] || tar -xzf $<
 	@cd $(SQLITE_VERSION) && \
-	 CFLAGS="$(filter-out -ffast-math,$(CFLAGS)) -DSQLITE_OS_OTHER=1" ./configure --disable-shared --disable-threadsafe --disable-dynamic-extensions --host=arm-none-eabi --prefix=$(PORTLIBS_PATH)/armv6k
+	 CFLAGS="$(filter-out -ffast-math,$(CFLAGS)) -DSQLITE_OS_OTHER=1" ./configure --disable-shared --disable-threadsafe --disable-dynamic-extensions --host=arm-none-eabi --prefix=$(PORTLIBS_PATH)/armv5te
 	# avoid building sqlite3 shell
 	@$(MAKE) -C $(SQLITE_VERSION) libsqlite3.la
 
 # tinyxml2 uses cmake
 $(TINYXML): $(TINYXML_SRC)
 	@[ -d $(TINYXML_VERSION) ] || tar -xzf $<
-	@cd $(TINYXML_VERSION) && cmake -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_C_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-g++ -DCMAKE_INSTALL_PREFIX=$(PORTLIBS_PATH)/armv6k -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_CXX_FLAGS="$(CFLAGS) -fno-exceptions -fno-rtti" . && make
+	@cd $(TINYXML_VERSION) && cmake -DCMAKE_SYSTEM_NAME=Generic -DCMAKE_C_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=$(DEVKITARM)/bin/arm-none-eabi-g++ -DCMAKE_INSTALL_PREFIX=$(PORTLIBS_PATH)/armv5te -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_CXX_FLAGS="$(CFLAGS) -fno-exceptions -fno-rtti" . && make
 
 $(TREMOR): $(TREMOR_SRC)
 	@[ -d $(TREMOR_VERSION) ] || tar -xzf $<
 	@cd $(TREMOR_VERSION) && \
-	 ./autogen.sh --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --disable-oggtest
+	 ./autogen.sh --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --disable-oggtest
 	@$(MAKE) -C $(TREMOR_VERSION)
 
 $(XZ): $(XZ_SRC)
 	@[ -d $(XZ_VERSION) ] || tar -xJf $<
 	@cd $(XZ_VERSION) && \
-	 ./configure --prefix=$(PORTLIBS_PATH)/armv6k --host=arm-none-eabi --disable-shared --enable-static --disable-xz --enable-threads=no
+	 ./configure --prefix=$(PORTLIBS_PATH)/armv5te --host=arm-none-eabi --disable-shared --enable-static --disable-xz --enable-threads=no
 	@$(MAKE) -C $(XZ_VERSION)
 
 $(ZLIB): $(ZLIB_SRC)
 	@[ -d $(ZLIB_VERSION) ] || tar -xzf $<
 	@cd $(ZLIB_VERSION) && \
-	 CHOST=arm-none-eabi ./configure --static --prefix=$(PORTLIBS_PATH)/armv6k
+	 CHOST=arm-none-eabi ./configure --static --prefix=$(PORTLIBS_PATH)/armv5te
 	@$(MAKE) -C $(ZLIB_VERSION)
 
 install-zlib:
 	@$(MAKE) -C $(ZLIB_VERSION) install
 
 install:
-	@[ ! -d $(BZIP2_VERSION) ] || $(MAKE) -C $(BZIP2_VERSION) PREFIX=$(PORTLIBS_PATH)/armv6k install
+	@[ ! -d $(BZIP2_VERSION) ] || $(MAKE) -C $(BZIP2_VERSION) PREFIX=$(PORTLIBS_PATH)/armv5te install
 	@[ ! -d $(FREETYPE_VERSION) ] || $(MAKE) -C $(FREETYPE_VERSION) install
 	@[ ! -d $(GIFLIB_VERSION) ] || $(MAKE) -C $(GIFLIB_VERSION) install
 	@[ ! -d $(JANSSON_VERSION) ] || $(MAKE) -C $(JANSSON_VERSION) install

@@ -3,12 +3,6 @@ TODO
 
 List of things to get done.
 
-General
--------
-
-* Change `-mfloat-abi=softfp` to `-mfloat-abi=hard` when new devkitARM is
-  released.
-
 SQLite
 ------
 
